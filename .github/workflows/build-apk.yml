@@ -1,0 +1,28 @@
+name: Build APK
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取源码
+        uses: actions/checkout@v4
+
+      - name: 配置Flutter环境
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: 安装依赖
+        run: flutter pub get
+
+      - name: 编译Release APK
+        run: flutter build apk --release --target-platform android-arm64
+
+      - name: 上传APK到Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hikari-novel-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
