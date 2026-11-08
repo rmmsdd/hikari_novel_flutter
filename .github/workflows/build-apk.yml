@@ -9,10 +9,10 @@ jobs:
       - name: 拉取源码
         uses: actions/checkout@v4
 
-      - name: 配置Flutter 3.35.0（Dart 3.14，满足项目要求）
+      - name: 配置Flutter 3.44.0（自带Dart 3.12，匹配项目要求）
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.0'
+          flutter-version: '3.44.0'
           channel: 'stable'
 
       - name: 清理缓存
@@ -30,7 +30,7 @@ jobs:
       - name: 编译release apk
         run: flutter build apk --release --target-platform android-arm64
 
-      - name: 输出APK
+      - name: 上传APK
         uses: actions/upload-artifact@v4
         with:
           name: hikari-novel-apk
